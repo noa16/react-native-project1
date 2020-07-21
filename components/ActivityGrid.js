@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontFamily: "open-sans-bold",
     fontSize: 15,
   },
 });
