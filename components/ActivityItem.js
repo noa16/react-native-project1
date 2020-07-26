@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     height: 150,
     width: "100%",
     backgroundColor: "#ccc",
+    marginVertical: 10,
   },
   activityHeader: {
     height: "85%",

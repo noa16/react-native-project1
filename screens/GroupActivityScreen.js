@@ -2,15 +2,15 @@ import React from "react";
 import { View, Text, FlatList, StyleSheet, Button } from "react-native";
 import { ACTIVITY, ACTIVITY_DETAILS } from "../data/dummy-data";
 import ActivityItem from "../components/ActivityItem";
-
+import ActivityList from "../components/ActivityList";
 const GroupActivityScreen = (props) => {
   const actId = props.navigation.getParam("activityId");
-  const selectedActivity = ACTIVITY.find((act) => act.id === actId);
+  const selectedActivity = ACTIVITY.find((act) => act.activityId === actId);
 
   const displayActivity = ACTIVITY_DETAILS.find(
     (act_details) => act_details.activityId === actId
   );
-  console.log(displayActivity.id);
+
   const renderActivityItem = (itemData) => {
     if (itemData.item.id === displayActivity.id) {
       return (
@@ -34,13 +34,7 @@ const GroupActivityScreen = (props) => {
     }
   };
   return (
-    <View style={styles.screen}>
-      <FlatList
-        data={ACTIVITY_DETAILS}
-        renderItem={renderActivityItem}
-        style={{ width: "100%" }}
-      />
-    </View>
+    <ActivityList listData={ACTIVITY_DETAILS} navigation={props.navigation} />
   );
 };
 
@@ -48,18 +42,10 @@ GroupActivityScreen.navigationOptions = (navigationData) => {
   //function for dynamic info we cant access props so we use function
 
   const actId = navigationData.navigation.getParam("activityId");
-  const selectedActivity = ACTIVITY.find((act) => act.id === actId);
+  const selectedActivity = ACTIVITY.find((act) => act.activityId === actId);
   return {
     headerTitle: selectedActivity.title,
   };
 };
-
-styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default GroupActivityScreen;

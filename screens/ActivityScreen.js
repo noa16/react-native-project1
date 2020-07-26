@@ -22,7 +22,7 @@ const ActivityScreen = (props) => {
           props.navigation.navigate({
             routeName: "GroupsActivity",
             params: {
-              activityId: itemData.item.id, //forward the data to the new screen we navigate
+              activityId: itemData.item.activityId, //forward the data to the new screen we navigate
             },
           });
         }}
