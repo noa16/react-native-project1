@@ -10,14 +10,17 @@ import {
 } from "react-native";
 import ActivityFavList from "../components/ActivityFavList";
 import { ACTIVITY_DETAILS } from "../data/dummy-data";
+import { useSelector } from "react-redux";
 const FavoritesScreen = (props) => {
+  const favActivities = useSelector(
+    (state) => state.activities.favoritesActivity
+  );
+  console.log(favActivities + "blaaaa");
   const favActivity = ACTIVITY_DETAILS.filter(
     (activity) => activity.activityId === "c8" || activity.activityId === "c7"
   );
 
-  return (
-    <ActivityFavList listData={favActivity} navigation={props.navigation} />
-  );
+  return <View></View>;
 };
 
 FavoritesScreen.navigationOptions = {

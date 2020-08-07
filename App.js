@@ -5,6 +5,14 @@ import * as Font from "expo-font";
 import { AppLoading } from "expo";
 import ActivityNavigator from "./navigation/ActivityNavigator";
 import ActivityScreen from "./screens/ActivityScreen";
+import { createStore, combineReducers } from "redux";
+import activityReducer from "./store/reducers/Activities";
+import { Provider } from "react-redux";
+
+const rootReducer = combineReducers({
+  activities: activityReducer,
+});
+const store = createStore(rootReducer);
 
 const fetchFonts = () => {
   Font.loadAsync({
@@ -24,5 +32,9 @@ export default function App() {
       />
     );
   }
-  return <ActivityNavigator />;
+  return (
+    <Provider store={store}>
+      <ActivityNavigator />
+    </Provider>
+  );
 }

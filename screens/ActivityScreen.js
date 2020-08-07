@@ -11,7 +11,13 @@ import {
 import { ACTIVITY } from "../data/dummy-data";
 import Colors from "../constants/Colors";
 import ActivityGrid from "../components/ActivityGrid";
-
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import {
+  NavigationContainer,
+  useNavigation,
+  DrawerActions,
+} from "@react-navigation/native";
+import HeaderButton from "../components/HeaderButton";
 const ActivityScreen = (props) => {
   const renderGridItem = (itemData) => {
     return (
@@ -20,7 +26,7 @@ const ActivityScreen = (props) => {
         color={itemData.item.color}
         onSelect={() => {
           props.navigation.navigate({
-            routeName: "GroupsActivity",
+            routeName: "ActivitySearch",
             params: {
               activityId: itemData.item.activityId, //forward the data to the new screen we navigate
             },
@@ -34,8 +40,21 @@ const ActivityScreen = (props) => {
   );
 };
 
-ActivityScreen.navigationOptions = {
-  headerTitle: "Activities",
+ActivityScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerTitle: "Activities",
+    headerRight: (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="Menu"
+          iconName="ios-menu"
+          onPress={() => {
+            console.log("pressed");
+          }}
+        />
+      </HeaderButtons>
+    ),
+  };
 };
 
 styles = StyleSheet.create({

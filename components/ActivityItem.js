@@ -20,7 +20,7 @@ const ActivityItem = (props) => {
               style={styles.bgImage}
             >
               <Text onPress={props.onSelect} style={styles.title}>
-                {props.title}
+                {props.title} - Search
               </Text>
             </ImageBackground>
           </View>

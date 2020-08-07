@@ -1,16 +1,19 @@
-import React from "react";
-import { FlatList, StyleSheet, View, InteractionManager } from "react-native";
+import React, { useEffect, useCallback } from "react";
+import { FlatList, StyleSheet, View, Button } from "react-native";
 import ActivityItem from "../components/ActivityItem";
 import { ACTIVITY_DETAILS } from "../data/dummy-data";
-
 const ActivityList = (props) => {
   const actId = props.navigation.getParam("activityId");
   console.log(actId + "bbbbbbbbbbbbb");
   const displayActivity = ACTIVITY_DETAILS.find(
     (act_details) => act_details.activityId === actId
   );
+
   const renderActivityItem = (itemData) => {
-    if (itemData.item.activityId === displayActivity.activityId) {
+    if (
+      itemData.item.activityId === displayActivity.activityId &&
+      props.location === itemData.item.location
+    ) {
       return (
         <ActivityItem
           price={itemData.item.price}
@@ -19,6 +22,10 @@ const ActivityList = (props) => {
               routeName: "ActivityDetail",
               params: {
                 activityId: itemData.item.activityId,
+                name: props.Name,
+                age: props.Age,
+                location: props.location,
+                selectedActivity: props.selectedActivity,
               },
             });
           }}

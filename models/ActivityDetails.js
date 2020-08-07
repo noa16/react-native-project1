@@ -8,7 +8,8 @@ class ActivityDetails {
     imageUrl,
     days,
     time,
-    location
+    location,
+    age
   ) {
     this.id = id;
     this.activityId = activityId;
@@ -19,6 +20,7 @@ class ActivityDetails {
     this.days = days;
     this.time = time;
     this.location = location;
+    this.age = age;
   }
 }
 

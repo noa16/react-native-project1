@@ -3,14 +3,17 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createAppContainer } from "react-navigation";
 import ActivityScreen from "../screens/ActivityScreen";
+import ActivitySearchScreen from "../components/SearchActivity";
 import GroupActivityScreen from "../screens/GroupActivityScreen";
 import ActivityDetailScreen from "../screens/ActivityDetailScreen";
 import FavoritesScreen from "../screens/FavoritesScreen";
 import Color from "../constants/Colors";
+import FiltersScreen from "../screens/FiltersScreen";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { Platform } from "react-native";
+import { createDrawerNavigator } from "react-navigation-drawer";
 const ActivityNavigator = createStackNavigator(
   {
     Activity: {
@@ -20,6 +23,8 @@ const ActivityNavigator = createStackNavigator(
       screen: GroupActivityScreen,
     },
     ActivityDetail: ActivityDetailScreen,
+
+    ActivitySearch: ActivitySearchScreen,
   },
   {
     defaultNavigationOptions: {
@@ -81,5 +86,15 @@ const Tab =
           },
         }
       );
+
+const mainNavigator = createDrawerNavigator({
+  ActivityFav: { screen: favNavigator },
+});
+
+const FiltersNavigator = createStackNavigator({
+  Filters: {
+    screen: FiltersScreen,
+  },
+});
 
 export default createAppContainer(Tab);

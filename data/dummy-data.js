@@ -23,7 +23,8 @@ export const ACTIVITY_DETAILS = [
     "https://images.pexels.com/photos/1263348/pexels-photo-1263348.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
     "sunday and monday",
     "17:00-20:00",
-    "blabla street"
+    "blabla street",
+    12
   ),
   new ActivityDetails(
     2,
@@ -34,7 +35,8 @@ export const ACTIVITY_DETAILS = [
     "https://images.pexels.com/photos/3758056/pexels-photo-3758056.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
     "sunday and monday",
     "17:00-20:00",
-    "blabla street"
+    "blabla street",
+    14
   ),
   new ActivityDetails(
     3,
@@ -44,7 +46,8 @@ export const ACTIVITY_DETAILS = [
     "https://images.pexels.com/photos/1432039/pexels-photo-1432039.jpeg?cs=srgb&dl=close-up-photo-of-person-holding-tennis-racket-and-ball-1432039.jpg&fm=jpg",
     "sunday and monday",
     "17:00-20:00",
-    "blabla street"
+    "blabla street",
+    8
   ),
   new ActivityDetails(
     4,
@@ -54,7 +57,8 @@ export const ACTIVITY_DETAILS = [
     "https://images.pexels.com/photos/1813137/pexels-photo-1813137.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
     "sunday and monday",
     "17:00-20:00",
-    "blabla street"
+    "Tel Aviv",
+    6
   ),
   new ActivityDetails(
     5,
@@ -64,7 +68,8 @@ export const ACTIVITY_DETAILS = [
     "https://images.pexels.com/photos/945471/pexels-photo-945471.jpeg?cs=srgb&dl=brown-basketball-on-grey-floor-945471.jpg&fm=jpg",
     "sunday and monday",
     "17:00-20:00",
-    "blabla street"
+    "beer",
+    7
   ),
   new ActivityDetails(
     6,
@@ -74,7 +79,8 @@ export const ACTIVITY_DETAILS = [
     "https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?cs=srgb&dl=soccer-ball-on-grass-field-during-daytime-46798.jpg&fm=jpg",
     "sunday and monday",
     "17:00-20:00",
-    "blabla street"
+    "blabla street",
+    10
   ),
   new ActivityDetails(
     7,
@@ -84,7 +90,8 @@ export const ACTIVITY_DETAILS = [
     "https://images.pexels.com/photos/6966/abstract-music-rock-bw.jpg?cs=srgb&dl=audio-e-guitars-guitars-music-6966.jpg&fm=jpg",
     "sunday and monday",
     "17:00-20:00",
-    "blabla street"
+    "blabla street",
+    6
   ),
   new ActivityDetails(
     8,
@@ -94,6 +101,53 @@ export const ACTIVITY_DETAILS = [
     "https://images.pexels.com/photos/256417/pexels-photo-256417.jpeg?cs=srgb&dl=text-on-shelf-256417.jpg&fm=jpg",
     "sunday and monday",
     "17:00-20:00",
-    "blabla street"
+    "blabla street",
+    6
+  ),
+  new ActivityDetails(
+    9,
+    "c4",
+    250,
+    "Singing",
+    "https://images.pexels.com/photos/1813137/pexels-photo-1813137.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    "thursday and monday",
+    "17:00-20:00",
+    "Tel Aviv",
+    8
+  ),
+  new ActivityDetails(
+    10,
+    "c4",
+    150,
+    "Singing",
+    "https://images.pexels.com/photos/1813137/pexels-photo-1813137.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    "sunday and monday",
+    "17:00-20:00",
+    "Beer Sheva",
+    9
+  ),
+  new ActivityDetails(
+    11,
+    "c2",
+    200,
+    "Yoga",
+
+    "https://images.pexels.com/photos/3758056/pexels-photo-3758056.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    "sunday and monday",
+    "17:00-20:00",
+    "noa street",
+    14
+  ),
+  new ActivityDetails(
+    12,
+    "c2",
+    200,
+    "Yoga",
+
+    "https://images.pexels.com/photos/3758056/pexels-photo-3758056.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    "sunday and monday",
+    "17:00-20:00",
+    "noa",
+    14
   ),
 ];
