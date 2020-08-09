@@ -6,7 +6,7 @@ import {
   Text,
   FlatList,
   StyleSheet,
-  Appearance,
+  Alert,
 } from "react-native";
 
 import { ACTIVITY_DETAILS } from "../data/dummy-data";
@@ -28,6 +28,7 @@ const ActivityDetailScreen = (props) => {
 
   const addActivityToFavorite = useCallback(() => {
     console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnn");
+    Alert.alert("Added To Favorite");
     dispatch(actions.favoriteActivity(location, age, nameActivity, activityId));
   }, [dispatch]);
 

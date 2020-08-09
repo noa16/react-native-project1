@@ -8,6 +8,7 @@ const initialState = {
   signedActivities: [],
   searchedActivities: [],
   favoritesActivity: {},
+  UniqueId: 0,
 };
 
 const activityReducer = (state = initialState, action) => {
@@ -24,16 +25,23 @@ const activityReducer = (state = initialState, action) => {
         searchedActivities: { ...state.searchedActivities, addedActivity },
       };
     case "FAVORITE_ACTIVITY":
-      console.log(action.activity.age + "inside reducerrrrrrr");
+      console.log(action.activity.id + "inside reducerrrrrrr");
       const favoriteActivity = new FavoriteActivity(
         action.activity.location,
         action.activity.age,
         action.activity.name,
+        action.activity.id,
         action.activity.id
       );
+      state.UniqueId = action.activity.id;
+      const updatedFavorite = {
+        ...state.favoritesActivity,
+        [action.activity.id]: favoriteActivity,
+      };
+      console.log(JSON.stringify(state.favoritesActivity));
       return {
         ...state,
-        favoritesActivity: { ...state.favoritesActivity, favoriteActivity },
+        favoritesActivity: updatedFavorite,
       };
   }
   return state;

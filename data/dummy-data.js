@@ -23,7 +23,7 @@ export const ACTIVITY_DETAILS = [
     "https://images.pexels.com/photos/1263348/pexels-photo-1263348.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
     "sunday and monday",
     "17:00-20:00",
-    "blabla street",
+    "street",
     12
   ),
   new ActivityDetails(
