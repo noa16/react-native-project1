@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import {
   ScrollView,
   Image,
@@ -7,12 +7,13 @@ import {
   FlatList,
   StyleSheet,
   Alert,
+  Button,
 } from "react-native";
 
 import { ACTIVITY_DETAILS } from "../data/dummy-data";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../components/HeaderButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../store/actions/actions";
 const ActivityDetailScreen = (props) => {
   const activityId = props.navigation.getParam("activityId");
@@ -20,22 +21,47 @@ const ActivityDetailScreen = (props) => {
   const location = props.navigation.getParam("location");
   const age = props.navigation.getParam("age");
   const nameActivity = props.navigation.getParam("selectedActivity");
+  var isSignes = false;
   const selectedActivity = ACTIVITY_DETAILS.find(
     (activity) => activity.activityId === activityId
   );
+  const { id } = ACTIVITY_DETAILS.find(
+    (activity) =>
+      activity.activityId === activityId && activity.location === location
+  );
+
+  const idOfPauseActivity = useSelector(
+    (state) => state.activities.activityToPause
+  );
+
+  Object.keys(idOfPauseActivity).map((item) => {
+    if (id === idOfPauseActivity[item]) {
+      console.log(id + "kkkkkkkkkkkkkkkkkkk");
+      //setSigned(true);
+      isSignes = true;
+    }
+  });
 
   const dispatch = useDispatch();
 
   const addActivityToFavorite = useCallback(() => {
-    console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnn");
     Alert.alert("Added To Favorite");
     dispatch(actions.favoriteActivity(location, age, nameActivity, activityId));
   }, [dispatch]);
 
   useEffect(() => {
+    //only once not recreate when the father recreate
     console.log("use effect");
     props.navigation.setParams({ addFavorite: addActivityToFavorite });
   }, [addActivityToFavorite]);
+
+  const registerHandler = useCallback(async () => {
+    Alert.alert("signed to the activity success" + activityId);
+    await dispatch(
+      actions.RegisterToActivity(location, age, nameActivity, activityId)
+    );
+    await dispatch(actions.DeleteActivity(id));
+  }, [dispatch]);
 
   const displayActivity = (name, location, age) => {
     return (
@@ -49,28 +75,21 @@ const ActivityDetailScreen = (props) => {
             return (
               <React.Fragment>
                 <View style={styles.containerData}>
-                  <Text style={{ fontFamily: "open-sans-bold" }}>
+                  <Text style={{ fontFamily: "open-sans-bold", fontSize: 15 }}>
                     {act.location.toUpperCase()}
                   </Text>
-                  <Text style={{ fontFamily: "open-sans-bold" }}>
-                    {act.title.toUpperCase()}
-                  </Text>
-                  <Text style={{ fontFamily: "open-sans-bold" }}>
+                  <Text>Location:</Text>
+
+                  <Text style={{ fontFamily: "open-sans-bold", fontSize: 15 }}>
                     +{act.age}
                   </Text>
-                  <Text style={{ fontFamily: "open-sans-bold" }}>
-                    {act.price}
+                  <Text>Age:</Text>
+
+                  <Text style={{ fontFamily: "open-sans-bold", fontSize: 15 }}>
+                    {act.price}$
                   </Text>
+                  <Text>Price:</Text>
                 </View>
-                <Image
-                  source={
-                    {
-                      //  uri:
-                      //"https://images.pexels.com/photos/1263349/pexels-photo-1263349.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-                    }
-                  }
-                  style={styles.image}
-                />
               </React.Fragment>
             );
           }
@@ -87,14 +106,13 @@ const ActivityDetailScreen = (props) => {
     <ScrollView>
       <Image source={{ uri: selectedActivity.imageUrl }} style={styles.image} />
       <View style={styles.details}></View>
-      <Text style={styles.title}>ACTIVITIES NEAR BY</Text>
-      <View style={styles.containerTitle}>
-        <Text>Location</Text>
-        <Text>Activity</Text>
-        <Text>Age</Text>
-        <Text>Price</Text>
-      </View>
+      <View style={styles.containerTitle}></View>
       <View>{displayActivity(name, location, age)}</View>
+      {isSignes === false ? (
+        <Button title="Sign Up" onPress={() => registerHandler()}></Button>
+      ) : (
+        <Text>Already sign in!</Text>
+      )}
     </ScrollView>
   );
 };

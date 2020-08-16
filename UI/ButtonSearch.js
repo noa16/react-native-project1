@@ -15,5 +15,7 @@ const styles = StyleSheet.create({
   btn: {
     position: "relative",
     marginTop: 20,
+    width: 350,
+    borderRadius: 30,
   },
 });

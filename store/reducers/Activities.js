@@ -2,6 +2,7 @@ import { ACTIVITY } from "../../data/dummy-data";
 import { SIGN_TO_ACTIVITY } from "../actions/actions";
 import SearchActivity from "../../models/ActivitySearch";
 import FavoriteActivity from "../../models/FavoriteActivity";
+import RegisterActivity from "../../models/RegisterActivity";
 
 const initialState = {
   activities: ACTIVITY,
@@ -9,6 +10,7 @@ const initialState = {
   searchedActivities: [],
   favoritesActivity: {},
   UniqueId: 0,
+  activityToPause: [],
 };
 
 const activityReducer = (state = initialState, action) => {
@@ -43,6 +45,29 @@ const activityReducer = (state = initialState, action) => {
         ...state,
         favoritesActivity: updatedFavorite,
       };
+    case " REGISTER_TO_ACTIVITY":
+      const registerAcitivity = new RegisterActivity(
+        action.activity.location,
+        action.activity.age,
+        action.activity.name,
+        action.activity.id
+      );
+      const updatedRegister = {
+        ...state.signedActivities,
+        [action.activity.id]: registerAcitivity,
+      };
+      return {
+        ...state,
+        signedActivities: updatedRegister,
+      };
+    case "DELETE_ACTIVITY ":
+      console.log("deleteeeeeeeee");
+      const updatePauseActivity = {
+        ...state.activityToPause,
+        [action.activity.id]: action.activity.id,
+      };
+      console.log(updatePauseActivity);
+      return { ...state, activityToPause: updatePauseActivity };
   }
   return state;
 };
