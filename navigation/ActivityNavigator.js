@@ -14,6 +14,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { Platform } from "react-native";
 import { createDrawerNavigator } from "react-navigation-drawer";
+import AboutScreen from '../screens/About'
 const ActivityNavigator = createStackNavigator(
   {
     Activity: {
@@ -25,6 +26,8 @@ const ActivityNavigator = createStackNavigator(
     ActivityDetail: ActivityDetailScreen,
 
     ActivitySearch: ActivitySearchScreen,
+
+    
   },
   {
     defaultNavigationOptions: {
@@ -87,14 +90,15 @@ const Tab =
         }
       );
 
+const aboutNavigator = createStackNavigator(
+  {
+    About:AboutScreen
+  }
+)
+
 const mainNavigator = createDrawerNavigator({
-  ActivityFav: { screen: favNavigator },
+  About: aboutNavigator ,
 });
 
-const FiltersNavigator = createStackNavigator({
-  Filters: {
-    screen: FiltersScreen,
-  },
-});
 
 export default createAppContainer(Tab);

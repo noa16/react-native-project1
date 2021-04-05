@@ -10,11 +10,12 @@ import {
 } from "react-native";
 import ActivityFavList from "../components/ActivityFavList";
 import { ACTIVITY_DETAILS } from "../data/dummy-data";
+const INPUT_FIELDS=["name","Age","location"]
 import { useSelector } from "react-redux";
 const FavoritesScreen = (props) => {
   const uniqueID = useSelector((state) => state.activities.UniqueId);
 
-  var listIDS = [];
+  //var listIDS = [];
   const favActivities = useSelector(
     (state) => state.activities.favoritesActivity
   );
@@ -22,14 +23,26 @@ const FavoritesScreen = (props) => {
   const isDisplayed =
     Object.keys(favActivities).length === 0 && uniqueID === 0 ? (
       <View>
-        <Text>No Favorite Activity was Found</Text>
+        <Text style={styles.notFound}>No Favorite Activity was Found</Text>
       </View>
     ) : (
       <View>
         {Object.keys(favActivities).map((item) => {
           return (
-            <View>
-              <Text>{favActivities[item].location}</Text>
+            
+            <View style={styles.containerData}>
+              <Text style={styles.textStyle}>
+                {favActivities[item].name}
+              </Text>
+              <Text>Activity Name:</Text>
+              <Text style={styles.textStyle}>
+                {favActivities[item].location}
+              </Text>
+              <Text>Location:</Text>
+              <Text style={styles.textStyle}>
+                {favActivities[item].age}
+              </Text>
+              <Text>Age:</Text>
             </View>
           );
         })}
@@ -51,7 +64,27 @@ FavoritesScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
-  title: { flex: 1, alignItems: "center", justifyContent: "center" },
+  containerData: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 10,
+    backgroundColor: "#6a5acd",
+    height: 30,
+
+    marginTop: 20,
+  },
+  title: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  notFound: { alignItems: "center", fontSize: 20 },
+
+  textStyle :{
+    fontFamily: "open-sans-bold",
+    fontSize: 15
+  }
+
 });
 
 export default FavoritesScreen;

@@ -5,14 +5,15 @@ import * as Font from "expo-font";
 import { AppLoading } from "expo";
 import ActivityNavigator from "./navigation/ActivityNavigator";
 import ActivityScreen from "./screens/ActivityScreen";
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import activityReducer from "./store/reducers/Activities";
 import { Provider } from "react-redux";
+import ReduxThunk from "redux-thunk";
 
 const rootReducer = combineReducers({
   activities: activityReducer,
 });
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 const fetchFonts = () => {
   Font.loadAsync({

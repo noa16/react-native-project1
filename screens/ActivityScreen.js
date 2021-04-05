@@ -36,7 +36,7 @@ const ActivityScreen = (props) => {
     );
   };
   return (
-    <FlatList numColumns={2} data={ACTIVITY} renderItem={renderGridItem} />
+    <FlatList numColumns={2} data={ACTIVITY} keyExtractor={ACTIVITY.activityId} renderItem={renderGridItem} />
   );
 };
 
@@ -57,17 +57,6 @@ ActivityScreen.navigationOptions = ({ navigation }) => {
   };
 };
 
-styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  gridItem: {
-    flex: 1,
-    margin: 10,
-    height: 150,
-  },
-});
+
 
 export default ActivityScreen;

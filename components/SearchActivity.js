@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useReducer } from "react";
+import React, {  useReducer, useState ,useCallback} from "react";
 import { useDispatch } from "react-redux";
 import Colors from "../constants/Colors";
 import {
@@ -16,11 +16,11 @@ import { block } from "react-native-reanimated";
 
 const FORM_INPUT_UPDATE = "UPDATE";
 const IS_VALID_FORM = "IS_VALID_FORM";
+const INPUT_FIELDS=["name","Age","location"]
 
 const formReducer = (state, action) => {
   if (action.type === FORM_INPUT_UPDATE) {
-    // console.log(action.value + "the text inputtt");
-    // console.log(action.input + "the text inputtt ident");
+    console.log("input update")
     const updatedValues = {
       ...state.inputValues,
       [action.input]: action.value,
@@ -35,9 +35,14 @@ const formReducer = (state, action) => {
   if (action.type === IS_VALID_FORM) {
     return { ...state, formIsValid: action.isValid };
   }
+  return{
+    ...state
+  }
 };
 
 const SearchActivity = (props) => {
+  
+
   const actId = props.navigation.getParam("activityId");
 
   const [formState, dispatch] = useReducer(formReducer, {
@@ -58,13 +63,16 @@ const SearchActivity = (props) => {
       input: inputIdentifier,
     });
   };
-
-  const submitHandler = useCallback(() => {
-    if (!formState.formIsValid) {
+  const submitHandler = (() => {
+    console.log("submit handler")
+    if (formState.inputValues.Age===0 || formState.inputValues.location==="" || formState.inputValues.name==="") {
+     
+      formState.isValid=false
       Alert.alert("worng Input!!", "please check the errors in the form", [
         { text: "Okey" },
       ]);
     } else {
+      
       props.navigation.navigate({
         routeName: "GroupsActivity",
         params: {
@@ -75,12 +83,11 @@ const SearchActivity = (props) => {
         },
       });
     }
-  }, [
-    actId,
-    formState.inputValues.name,
-    formState.inputValues.Age,
-    formState.inputValues.location,
-  ]);
+    
+  })
+  
+    
+  
 
   return (
     <View style={styles.container}>
@@ -92,30 +99,24 @@ const SearchActivity = (props) => {
         style={styles.image}
       />
       <View style={styles.inputContainer}>
-        <Text style={styles.txtInputName}>Full Name</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Full Name"
-          onChangeText={textChangeHandler.bind(this, "name")}
-        ></TextInput>
-        <Text style={styles.txtInputAge}>Age</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Age"
-          onChangeText={textChangeHandler.bind(this, "Age")}
-          keyboardType="decimal-pad"
-        ></TextInput>
-        <Text style={styles.txtInputLocation}>Location</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Location"
-          onChangeText={textChangeHandler.bind(this, "location")}
-        ></TextInput>
-        {!formState.formIsValid && <Text>Please enter a valid title </Text>}
+        
+        {INPUT_FIELDS.map((InputField)=>{
+          key={InputField}
+          return(
+            <View>
+            <Text style={styles.txtInputName}>{InputField}</Text>
+            <TextInput
+            style={styles.input}
+            onChangeText={(input)=>textChangeHandler(InputField,input)}>
+
+            </TextInput>
+            </View>
+          )
+        })}
+  
+        {!formState.formIsValid && <Text>Please enter a valid input </Text>}
         <ButtonSearch
-          onSelect={() => {
-            submitHandler();
-          }}
+          onSelect={()=>submitHandler()}
         />
       </View>
     </View>

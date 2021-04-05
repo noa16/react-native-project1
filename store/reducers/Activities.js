@@ -11,6 +11,7 @@ const initialState = {
   favoritesActivity: {},
   UniqueId: 0,
   activityToPause: [],
+  error: false,
 };
 
 const activityReducer = (state = initialState, action) => {
@@ -68,6 +69,11 @@ const activityReducer = (state = initialState, action) => {
       };
       console.log(updatePauseActivity);
       return { ...state, activityToPause: updatePauseActivity };
+    case "SET_ERROR":
+      return {
+        ...state,
+        error: action.activity.error,
+      };
   }
   return state;
 };
