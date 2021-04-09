@@ -9,34 +9,33 @@ import {
   Alert,
   Button,
 } from "react-native";
-
-import { ACTIVITY_DETAILS } from "../data/dummy-data";
+import ActivityDetailsView from './ActivityDetailesView'
+import {selectedActivity,findActivityByIdLocation} from '../Logic/Function'
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../components/HeaderButton";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../store/actions/actions";
 const ActivityDetailScreen = (props) => {
   const activityId = props.navigation.getParam("activityId");
-  const name = props.navigation.getParam("name");
-  console.log("nameeeee" + name);
-  const location = props.navigation.getParam("location");
-  const age = props.navigation.getParam("age");
   const nameActivity = props.navigation.getParam("selectedActivity");
   const [error, setError] = useState(false);
   const [isSignes,setSignes] = useState(false)
  
-  const selectedActivity = ACTIVITY_DETAILS.find(
-    (activity) => activity.activityId === activityId
+
+   const searchInput = useSelector(
+    (state) => state.activities.infoFromInputFiels
   );
-  const { id } = ACTIVITY_DETAILS.find(
-    (activity) =>
-      activity.activityId === activityId && activity.location === location
-  );
+  const selectedActivityDetailes=selectedActivity(activityId)
+  const id  = findActivityByIdLocation(activityId,searchInput.location)
+  
 
   const idOfPauseActivity = useSelector(
     (state) => state.activities.activityToPause
   );
+ 
 
+ 
+  
   
   useEffect(()=>{
     console.log("delete sign in")
@@ -59,8 +58,8 @@ const ActivityDetailScreen = (props) => {
   const addActivityToFavorite =useCallback(() => {///נרצה שהפונקציה תיווצר מחדש לא כשהמשתמש לוחץ על הכפתור
     console.log('favorite')
     Alert.alert("Added To Favorite");
-    dispatch(actions.favoriteActivity(location, age, nameActivity, activityId));
-  },[location,dispatch,age,nameActivity,activityId]);
+    dispatch(actions.favoriteActivity(searchInput.location, searchInput.age, nameActivity, activityId));
+  },[searchInput.location,dispatch,searchInput.age,nameActivity,activityId]);
 
   useEffect(() => {
     //only once not recreate when the father recreate
@@ -71,7 +70,7 @@ const ActivityDetailScreen = (props) => {
   const registerHandler = useCallback(async () => {
     try {
       await dispatch(
-        actions.RegisterToActivity(location, age, nameActivity, activityId)
+        actions.RegisterToActivity(searchInput.location,searchInput.age, nameActivity, activityId)
       );
       await dispatch(actions.DeleteActivity(id));
       await  setSignes(true)
@@ -83,62 +82,20 @@ const ActivityDetailScreen = (props) => {
     }
   }, [dispatch]);
 
-  const displayActivity = (name, location, age) => {
-    return (
-      <View>
-        {ACTIVITY_DETAILS.map((act) => {
-          if (
-            act.location === location &&
-            (act.age === age || act.age < age) &&
-            act.title === nameActivity
-          ) {
-            return (
-              <React.Fragment>
-                <View style={styles.containerData1}>
-                  <Text style={styles.textStyle}>
-                    {act.location.toUpperCase()}
-                  </Text>
-                  <Text>Location:</Text>
-
-                  <Text style={styles.textStyle}>
-                    +{act.age}
-                  </Text>
-                  <Text>Age:</Text>
-
-                  <Text style={styles.textStyle}>
-                    {act.price}$
-                  </Text>
-                  <Text>Price:</Text>
-                </View>
-                <View style={styles.containerData2}>
-                  <Text style={styles.textStyle}>
-                    {act.time}
-                  </Text>
-                  <Text>Time:</Text>
-                  <Text style={styles.textStyle}>
-                    {act.days}
-                  </Text>
-                  <Text>Days:</Text>
-                </View>
-              </React.Fragment>
-            );
-          }
-        })}
-      </View>
-    );
-  };
+  
 
   useEffect(() => {
     console.log("selected activity")
-    props.navigation.setParams({ activityTitle: selectedActivity.title });
+    props.navigation.setParams({ activityTitle: selectedActivityDetailes.title });
   }, []);
 
   return (
     <ScrollView>
-      <Image source={{ uri: selectedActivity.imageUrl }} style={styles.image} />
+      <Image source={{ uri:selectedActivityDetailes.imageUrl }} style={styles.image} />
       <View style={styles.details}></View>
       <View style={styles.containerTitle}></View>
-      <View>{displayActivity(name, location, age)}</View>
+    
+      <ActivityDetailsView nameActivity={nameActivity} location={searchInput.location} age={searchInput.age}/>
       {isSignes === false ? (
         <Button title="Sign Up" onPress={() => registerHandler()}></Button>
       ) : (
@@ -155,9 +112,7 @@ ActivityDetailScreen.navigationOptions = (navigationData) => {
   const activityId = navigationData.navigation.getParam("activityId");
   const activityTitle = navigationData.navigation.getParam("activityTitle");
   const favoriteFn = navigationData.navigation.getParam("addFavorite");
-  const selectedActivity = ACTIVITY_DETAILS.find(
-    (activity) => activity.activityId === activityId
-  );
+  
 
   return {
     headerTitle: activityTitle,
@@ -175,11 +130,7 @@ ActivityDetailScreen.navigationOptions = (navigationData) => {
 };
 
 styles = StyleSheet.create({
-  containerData2: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 10,
-  },
+
   image: {
     width: "100%",
     height: 200,
@@ -194,11 +145,7 @@ styles = StyleSheet.create({
     fontSize: 22,
     textAlign: "center",
   },
-  containerData1: {
-    marginTop: 20,
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
+
   containerTitle: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -211,11 +158,7 @@ styles = StyleSheet.create({
     color: "red",
     fontFamily: "open-sans-bold",
   },
-  textStyle:{
-     fontFamily: "open-sans-bold",
-      fontSize: 15,
-
-  }
+ 
 });
 
 export default ActivityDetailScreen;

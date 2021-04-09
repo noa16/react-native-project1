@@ -1,24 +1,18 @@
 import React from "react";
 import {
-  View,
-  Text,
   FlatList,
-  StyleSheet,
-  Button,
-  TouchableOpacity,
-  Platform,
+ 
 } from "react-native";
 import { ACTIVITY } from "../data/dummy-data";
 import Colors from "../constants/Colors";
 import ActivityGrid from "../components/ActivityGrid";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import {
-  NavigationContainer,
-  useNavigation,
-  DrawerActions,
-} from "@react-navigation/native";
+import { withNavigation, DrawerActions } from 'react-navigation'
 import HeaderButton from "../components/HeaderButton";
 const ActivityScreen = (props) => {
+    toggleDrawer = () => {
+    this.props.navigation.dispatch(DrawerActions.toggleDrawer())
+  }
   const renderGridItem = (itemData) => {
     return (
       <ActivityGrid
@@ -49,7 +43,7 @@ ActivityScreen.navigationOptions = ({ navigation }) => {
           title="Menu"
           iconName="ios-menu"
           onPress={() => {
-            console.log("pressed");
+            navigation.navigate('DrawerOpen')
           }}
         />
       </HeaderButtons>

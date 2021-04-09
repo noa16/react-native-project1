@@ -1,18 +1,19 @@
-import React, { useEffect, useCallback } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import { FlatList, StyleSheet, View, Button } from "react-native";
 import ActivityItem from "../components/ActivityItem";
-import { ACTIVITY_DETAILS } from "../data/dummy-data";
+import {selectedActivity} from '../Logic/Function'
 const ActivityList = (props) => {
-  const actId = props.navigation.getParam("activityId");
-  console.log(actId + "bbbbbbbbbbbbb");
-  const displayActivity = ACTIVITY_DETAILS.find(
-    (act_details) => act_details.activityId === actId
+    const infoFromInputFiels= useSelector(
+    (state) => state.activities.infoFromInputFiels
   );
-
+  
+  const displayActivity = selectedActivity(infoFromInputFiels.actId)
+  
   const renderActivityItem = (itemData) => {
     if (
       itemData.item.activityId === displayActivity.activityId &&
-      props.location === itemData.item.location
+      infoFromInputFiels.location === itemData.item.location
     ) {
       return (
         <ActivityItem
@@ -22,9 +23,6 @@ const ActivityList = (props) => {
               routeName: "ActivityDetail",
               params: {
                 activityId: itemData.item.activityId,
-                name: props.Name,
-                age: props.Age,
-                location: props.location,
                 selectedActivity: props.selectedActivity,
               },
             });

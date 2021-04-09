@@ -2,15 +2,11 @@ import React from "react";
 import {
   View,
   Text,
-  FlatList,
   StyleSheet,
-  Button,
-  TouchableOpacity,
-  Platform,
+ 
 } from "react-native";
-import ActivityFavList from "../components/ActivityFavList";
-import { ACTIVITY_DETAILS } from "../data/dummy-data";
-const INPUT_FIELDS=["name","Age","location"]
+
+
 import { useSelector } from "react-redux";
 const FavoritesScreen = (props) => {
   const uniqueID = useSelector((state) => state.activities.UniqueId);

@@ -7,6 +7,7 @@ import {
   ImageBackground,
 } from "react-native";
 
+
 const ActivityItem = (props) => {
   return (
     <View style={styles.activityItem}>

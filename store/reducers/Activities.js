@@ -1,8 +1,8 @@
 import { ACTIVITY } from "../../data/dummy-data";
-import { SIGN_TO_ACTIVITY } from "../actions/actions";
 import SearchActivity from "../../models/ActivitySearch";
 import FavoriteActivity from "../../models/FavoriteActivity";
 import RegisterActivity from "../../models/RegisterActivity";
+import InputDetail from "../../models/InputDetail"
 
 const initialState = {
   activities: ACTIVITY,
@@ -12,6 +12,7 @@ const initialState = {
   UniqueId: 0,
   activityToPause: [],
   error: false,
+  infoFromInputFiels:{name:'',age:'',location:'',actId:''}
 };
 
 const activityReducer = (state = initialState, action) => {
@@ -74,6 +75,16 @@ const activityReducer = (state = initialState, action) => {
         ...state,
         error: action.activity.error,
       };
+
+    case "SET_INPUT":
+      const input = new InputDetail(action.detailes.name,action.detailes.age,action.detailes.location,action.detailes.actId)
+     
+      return{
+         ...state,
+         infoFromInputFiels:input
+
+      }
+   
   }
   return state;
 };

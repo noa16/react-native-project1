@@ -1,6 +1,7 @@
 import React, {  useReducer, useState ,useCallback} from "react";
 import { useDispatch } from "react-redux";
 import Colors from "../constants/Colors";
+import {submitHandler} from '../Logic/SearchLogic'
 import {
   View,
   Text,
@@ -42,7 +43,7 @@ const formReducer = (state, action) => {
 
 const SearchActivity = (props) => {
   
-
+  const dispatchRedux= useDispatch()
   const actId = props.navigation.getParam("activityId");
 
   const [formState, dispatch] = useReducer(formReducer, {
@@ -63,32 +64,6 @@ const SearchActivity = (props) => {
       input: inputIdentifier,
     });
   };
-  const submitHandler = (() => {
-    console.log("submit handler")
-    if (formState.inputValues.Age===0 || formState.inputValues.location==="" || formState.inputValues.name==="") {
-     
-      formState.isValid=false
-      Alert.alert("worng Input!!", "please check the errors in the form", [
-        { text: "Okey" },
-      ]);
-    } else {
-      
-      props.navigation.navigate({
-        routeName: "GroupsActivity",
-        params: {
-          activityId: actId,
-          name: formState.inputValues.name,
-          age: formState.inputValues.Age,
-          location: formState.inputValues.location,
-        },
-      });
-    }
-    
-  })
-  
-    
-  
-
   return (
     <View style={styles.container}>
       <Image
@@ -101,7 +76,7 @@ const SearchActivity = (props) => {
       <View style={styles.inputContainer}>
         
         {INPUT_FIELDS.map((InputField)=>{
-          key={InputField}
+          
           return(
             <View>
             <Text style={styles.txtInputName}>{InputField}</Text>
@@ -116,7 +91,7 @@ const SearchActivity = (props) => {
   
         {!formState.formIsValid && <Text>Please enter a valid input </Text>}
         <ButtonSearch
-          onSelect={()=>submitHandler()}
+          onSelect={()=>submitHandler(formState,props,dispatchRedux,actId)}
         />
       </View>
     </View>
