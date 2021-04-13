@@ -4,15 +4,11 @@ import {
  
 } from "react-native";
 import { ACTIVITY } from "../data/dummy-data";
-import Colors from "../constants/Colors";
 import ActivityGrid from "../components/ActivityGrid";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { withNavigation, DrawerActions } from 'react-navigation'
 import HeaderButton from "../components/HeaderButton";
 const ActivityScreen = (props) => {
-    toggleDrawer = () => {
-    this.props.navigation.dispatch(DrawerActions.toggleDrawer())
-  }
+  
   const renderGridItem = (itemData) => {
     return (
       <ActivityGrid
@@ -43,7 +39,7 @@ ActivityScreen.navigationOptions = ({ navigation }) => {
           title="Menu"
           iconName="ios-menu"
           onPress={() => {
-            navigation.navigate('DrawerOpen')
+            navigation.navigate('Login')
           }}
         />
       </HeaderButtons>

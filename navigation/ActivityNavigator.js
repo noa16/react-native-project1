@@ -14,6 +14,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { Platform } from "react-native";
 import { createDrawerNavigator } from "react-navigation-drawer";
+import LoginScreen from '../screens/Login'
 import AboutScreen from '../screens/About'
 const ActivityNavigator = createStackNavigator(
   {
@@ -26,6 +27,12 @@ const ActivityNavigator = createStackNavigator(
     ActivityDetail: ActivityDetailScreen,
 
     ActivitySearch: ActivitySearchScreen,
+    
+    Login:LoginScreen,
+    
+    About:AboutScreen
+        
+
 
     
   },

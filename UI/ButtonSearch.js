@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 
 const ButtonSearch = (props) => {
+  
   return (
     <View style={styles.btn}>
       <Button title="Search" onPress={props.onSelect} />
@@ -17,5 +18,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: 350,
     borderRadius: 30,
+    
   },
 });

@@ -1,19 +1,17 @@
 import React, {  useReducer, useState ,useCallback} from "react";
 import { useDispatch } from "react-redux";
-import Colors from "../constants/Colors";
 import {submitHandler} from '../Logic/SearchLogic'
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
-  Button,
-  Alert,
   Image,
 } from "react-native";
-import * as ActivityAction from "../store/actions/actions";
+import TextInputStyle from '../UI/TextInputStyle'
+
 import ButtonSearch from "../UI/ButtonSearch";
-import { block } from "react-native-reanimated";
+
 
 const FORM_INPUT_UPDATE = "UPDATE";
 const IS_VALID_FORM = "IS_VALID_FORM";
@@ -21,10 +19,10 @@ const INPUT_FIELDS=["name","Age","location"]
 
 const formReducer = (state, action) => {
   if (action.type === FORM_INPUT_UPDATE) {
-    console.log("input update")
+    console.log("input update"+action.input)
     const updatedValues = {
       ...state.inputValues,
-      [action.input]: action.value,
+      [action.value]: action.input,
     };
 
     return {
@@ -56,7 +54,7 @@ const SearchActivity = (props) => {
     formIsValid: true,
   });
 
-  const textChangeHandler = (inputIdentifier, text) => {
+  const inputChangeHandler = (inputIdentifier, text) => {
     dispatch({
       type: FORM_INPUT_UPDATE,
       value: text,
@@ -80,18 +78,16 @@ const SearchActivity = (props) => {
           return(
             <View>
             <Text style={styles.txtInputName}>{InputField}</Text>
-            <TextInput
-            style={styles.input}
-            onChangeText={(input)=>textChangeHandler(InputField,input)}>
-
-            </TextInput>
+            <TextInputStyle inputChangeHandler={inputChangeHandler} InputField={InputField}/>
             </View>
           )
         })}
   
         {!formState.formIsValid && <Text>Please enter a valid input </Text>}
         <ButtonSearch
-          onSelect={()=>submitHandler(formState,props,dispatchRedux,actId)}
+          onSelect={()=>submitHandler(formState,props,dispatchRedux,actId)
+          }
+         
         />
       </View>
     </View>
@@ -108,35 +104,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
   },
-  input: {
-    width: 350,
-    height: 40,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    borderTopColor: "#ccc",
-    borderTopWidth: 1,
-    borderLeftColor: "#ccc",
-    borderLeftWidth: 1,
-    borderRightColor: "#ccc",
-    borderRightWidth: 1,
-    margin: 10,
-    padding: 8,
-    color: "black",
-    borderRadius: 14,
-    fontSize: 18,
-    fontWeight: "500",
-  },
+  
 
-  txtInputAge: {
-    fontFamily: "open-sans-bold",
-    fontSize: 15,
-    marginLeft: 300,
-  },
-  txtInputLocation: {
-    marginLeft: 275,
-    fontFamily: "open-sans-bold",
-    fontSize: 15,
-  },
+ 
   txtInputName: {
     marginLeft: 275,
     fontFamily: "open-sans-bold",
