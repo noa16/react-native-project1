@@ -1,26 +1,41 @@
-import React, { useState, useEffect, useReducer, useCallback } from 'react';
-import TextInputStyle from '../UI/TextInputStyle'
+import React, {useReducer, useCallback, useEffect } from 'react';
 import InputLogin from '../UI/InputLogin'
 import Card from '../UI/Card'
 import Button from '../UI/ButtonSearch'
 import {
   View,
   Text,
-  
+  Alert,
 StyleSheet,
 } from "react-native";
-import { useDispatch } from 'react-redux';
-import {SubmitHandler,isValidInput} from '../Logic/LoginLogic'
-import { submitHandler } from '../Logic/SearchLogic';
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
+const VALID_FORM = 'VALID_FORM';
+const SET_ERROR ='SET_ERROR'
+import {cheackValidity} from '../Logic/LoginLogic'
+import { useDispatch, useSelector } from "react-redux";
+import * as actionsUser from "../store/actions/User";
 
 const formReducer = (state, action) => {
   if (action.type === FORM_INPUT_UPDATE) {
+      
     return{
     ...state,
     [action.label]:action.value
     }
 
+  }
+  if(action.type===VALID_FORM){
+      return{
+          ...state,
+          formIsValid:action.value
+      }
+
+  }
+  if(action.type===SET_ERROR){
+      return{
+          ...state,
+          error:action.value
+      }
   }
   
 };
@@ -29,29 +44,55 @@ const formReducer = (state, action) => {
 
 
 
-const Login = ()=>{
+const Login = (props)=>{
 
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState('');
-    const [isSignup, setIsSignup] = useState(false);
     const dispatch = useDispatch();
     const [formState, dispatchFormState] = useReducer(formReducer, {
       email: '',
       password: '',
-    formIsValid: false
+    formIsValid: null,
+    error:null
   });
 
-   useEffect(() => {
-    if (error) {
-      Alert.alert('An Error Occurred!', error, [{ text: 'Okay' }]);
+
+  useEffect(()=>{
+  if (formState.error) {
+      Alert.alert('An Error Occurred!', formState.error, [{ text: 'Okay' }]);
     }
-  }, [error]);
+
+  },[formState.error])
+
+  const submitHandler=()=>{
+    const res = cheackValidity(formState.email,formState.password)
+    console.log(res.error)
+    if(res.error!=='')
+    {
+        dispatchFormState({type:SET_ERROR,value:res.error})
+
+    }
+    else{
+
+        //check for correct pass and username
 
 
- const setInput = useCallback((text)=>{
+        console.log(formState.password+"jgjgfjgfjf")
+        dispatch(actionsUser.setUser(formState.email,formState.password))
+        props.navigation.navigate({
+            routeName:'User',
+            params:{
+                username:formState.email
+            }
+        })
+    }
+  }
 
-      dispatch({ type: FORM_INPUT_UPDATE, value: text});
+ 
+
+
+ const setInput = useCallback((text,label)=>{
+
+      dispatchFormState({ type: FORM_INPUT_UPDATE, value: text,label});
  },[formState])
 
  
@@ -60,18 +101,19 @@ const Login = ()=>{
         <View style={styles.container}  >
             <Card>
             <View style={styles.containerInput} >
-                <InputLogin setInput={setInput}   initialValue={''} errorText={'Please enter a valid Username '} label={'username'} id={'Username'}/>  
+                <InputLogin setInput={setInput}   initialValue={''} errorText={'Please enter a valid Username '} label={'email'} id={'Username'}/>  
             </View>
             <View style={styles.containerInput} >
-                <InputLogin setInput={setInput} initialValue={''} errorText={'Please enter a valid password address'} label={'password'} id={'Password'} />
+                <InputLogin setInput={setInput}  initialValue={''} errorText={'Please enter a valid password address'} label={'password'} id={'Password'} />
             </View>
              </Card>
              <View style={styles.btnContainer}>
                  <Button onSelect={submitHandler} />
+                
              </View>
              
-             
-            
+             <Text> {formState.error}</Text>
+           
         </View>
 
     )

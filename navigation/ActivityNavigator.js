@@ -16,6 +16,7 @@ import { Platform } from "react-native";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import LoginScreen from '../screens/Login'
 import AboutScreen from '../screens/About'
+import UserScreen from '../screens/User'
 const ActivityNavigator = createStackNavigator(
   {
     Activity: {
@@ -30,7 +31,9 @@ const ActivityNavigator = createStackNavigator(
     
     Login:LoginScreen,
     
-    About:AboutScreen
+    About:AboutScreen,
+
+    User:UserScreen
         
 
 

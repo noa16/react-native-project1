@@ -3,7 +3,8 @@ export const FAVORITE_ACTIVITY = "FAVORITE_ACTIVITY";
 export const REGISTER_TO_ACTIVITY = "REGISTER_TO_ACTIVITY";
 export const DELETE_ACTIVITY = "DELETE_ACTIVITY ";
 export const SET_ERROR = "SET_ERROR";
-export const SET_INPUT = "SET_INPUT"
+export const SET_INPUT = "SET_INPUT";
+
 import { ACTIVITY_DETAILS } from "../../data/dummy-data";
 
 export const searchActivity = (title, location, age, name) => {

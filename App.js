@@ -9,9 +9,11 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import activityReducer from "./store/reducers/Activities";
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
+import UserReducer from './store/reducers/UserReducer'
 
 const rootReducer = combineReducers({
   activities: activityReducer,
+  userReducer:UserReducer
 });
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 

@@ -1,57 +1,36 @@
-import React, {useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import React, {useState,useEffect, useCallback } from 'react';
+import { View, Text, TextInput, StyleSheet,Alert } from 'react-native';
 import {cheackValidity} from '../Logic/LoginLogic'
-
-
-
+import useStateWithCallback from 'use-state-with-callback';
 
 
 const InputLogin = (props)=>{
    const {setInput} = props
-
-   const [isUsername,setUsernameValid] = useState(false)
-   const [isPassword,setPasswordValid] = useState(false)
    const [error,setError] = useState('')
  
    
 
 
- const onInputChange=(inputText,label)=>{//check valid input
-          const formState=cheackValidity(inputText,label)
-          if(formState.isValidPassword===true){
-              setInput(inputText)
-              setUsernameValid(true)
-              
-          }
-          if(formState.isValidUserName===true){
-              setInput(inputText)
-              setPasswordValid(true)
-          }
 
-          if(isUsername===false){
-              setError(formState.error)
-              setUsernameValid(false)
-            
-          }
-          if(isPassword===false){
-              setError(formState.error)
-              setPasswordValid(false)
-          }
- }
-
- const lostFocusHandler = () => {
-    
-  };
 
   
 
+
+
+const onInputChange=(text,label)=>{
+  setInput(text,label)
+
+}
+
+
+ 
+   
       return (
     <View style={styles.formControl}>
       <Text style={styles.label}>{props.label}</Text>
       <TextInput
         {...props}
         style={styles.input}
-         onBlur={lostFocusHandler}
         onChangeText={(input)=>onInputChange(input,props.label)}
         
       />
@@ -59,6 +38,7 @@ const InputLogin = (props)=>{
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>{error}</Text>
         </View>
+        
     
     </View>
   );
@@ -87,7 +67,10 @@ const styles = StyleSheet.create({
     fontFamily: 'open-sans',
     color: 'red',
     fontSize: 13
-  }
+  },
+   btnContainer:{
+        marginLeft:20
+    }
 });
 
-export default InputLogin
+export default React.memo(InputLogin)
