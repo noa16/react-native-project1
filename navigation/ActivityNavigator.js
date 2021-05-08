@@ -17,6 +17,7 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 import LoginScreen from '../screens/Login'
 import AboutScreen from '../screens/About'
 import UserScreen from '../screens/User'
+import SignupScreen from '../screens/Signup'
 const ActivityNavigator = createStackNavigator(
   {
     Activity: {
@@ -33,7 +34,9 @@ const ActivityNavigator = createStackNavigator(
     
     About:AboutScreen,
 
-    User:UserScreen
+    User:UserScreen,
+
+    Signup:SignupScreen
         
 
 

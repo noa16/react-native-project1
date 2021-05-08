@@ -7,9 +7,10 @@ import {
   StyleSheet,
   TextInput,
   Image,
+  ImageBackground
 } from "react-native";
 import TextInputStyle from '../UI/TextInputStyle'
-
+import Card from '../UI/Card'
 import ButtonSearch from "../UI/ButtonSearch";
 
 
@@ -64,13 +65,13 @@ const SearchActivity = (props) => {
   };
   return (
     <View style={styles.container}>
-      <Image
-        source={{
-          uri:
-            "https://images.pexels.com/photos/40815/youth-active-jump-happy-40815.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-        }}
-        style={styles.image}
-      />
+      <Card
+       
+      
+      
+      
+      >
+      
       <View style={styles.inputContainer}>
         
         {INPUT_FIELDS.map((InputField)=>{
@@ -90,6 +91,7 @@ const SearchActivity = (props) => {
          
         />
       </View>
+      </Card>
     </View>
   );
 };
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 160,
+    height: "100%",
   },
   inputContainer: {
     marginTop: 25,

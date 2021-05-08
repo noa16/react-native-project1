@@ -14,6 +14,7 @@ const ActivityScreen = (props) => {
       <ActivityGrid
         title={itemData.item.title}
         color={itemData.item.color}
+        imgBack={itemData.item.backImg}
         onSelect={() => {
           props.navigation.navigate({
             routeName: "ActivitySearch",

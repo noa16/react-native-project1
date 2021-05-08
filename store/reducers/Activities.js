@@ -52,11 +52,12 @@ const activityReducer = (state = initialState, action) => {
         action.activity.location,
         action.activity.age,
         action.activity.name,
-        action.activity.id
+        action.activity.id,
+        action.activity.username
       );
       const updatedRegister = {
         ...state.signedActivities,
-        [action.activity.id]: registerAcitivity,
+        [ action.activity.username]: registerAcitivity,
       };
       return {
         ...state,

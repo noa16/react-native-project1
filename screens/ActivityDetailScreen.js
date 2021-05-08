@@ -25,6 +25,16 @@ const ActivityDetailScreen = (props) => {
    const searchInput = useSelector(
     (state) => state.activities.infoFromInputFiels
   );
+  const isLogin = useSelector(
+    (state)=>state.userReducer.isLogin)
+
+  const username = useSelector(
+    (state)=>state.userReducer.username
+  )
+  
+  const password = useSelector(
+    (state)=>state.userReducer.password
+  )
   const selectedActivityDetailes=selectedActivity(activityId)
   const id  = findActivityByIdLocation(activityId,searchInput.location)
   
@@ -68,9 +78,10 @@ const ActivityDetailScreen = (props) => {
   }, [addActivityToFavorite]);//called when the function addActivityTo created
 
   const registerHandler = useCallback(async () => {
+    if(isLogin){
     try {
       await dispatch(
-        actions.RegisterToActivity(searchInput.location,searchInput.age, nameActivity, activityId)
+        actions.RegisterToActivity(searchInput.location,searchInput.age, nameActivity, activityId,username,password)
       );
       await dispatch(actions.DeleteActivity(id));
       await  setSignes(true)
@@ -79,7 +90,13 @@ const ActivityDetailScreen = (props) => {
       Alert.alert("signed to the activity success" + activityId);
     } catch (error) {
       setError(true);
+      console.log(error)
     }
+  }
+  else{
+     Alert.alert("You need to login first" + activityId);
+     setError(true);
+  }
   }, [dispatch]);
 
   

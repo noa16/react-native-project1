@@ -4,6 +4,7 @@ export const REGISTER_TO_ACTIVITY = "REGISTER_TO_ACTIVITY";
 export const DELETE_ACTIVITY = "DELETE_ACTIVITY ";
 export const SET_ERROR = "SET_ERROR";
 export const SET_INPUT = "SET_INPUT";
+import axios from "axios";
 
 import { ACTIVITY_DETAILS } from "../../data/dummy-data";
 
@@ -38,10 +39,11 @@ export const favoriteActivity = (location, age, name, id) => {
   };
 };
 
-export const RegisterToActivity = (location, age, name, id) => {
+export const RegisterToActivity = (location, age, name, id,username,password) => {
   return async (dispatch) => {
     ///any async code
     try {
+      console.log("register")
       const response = await fetch(
         "https://activityproject-45767.firebaseio.com/signed.json",
         {
@@ -53,9 +55,12 @@ export const RegisterToActivity = (location, age, name, id) => {
             location,
             age,
             name,
+            username,
+            password
           }),
         }
       );
+      
 
       const resData = await response.json();
       console.log(resData);
@@ -66,6 +71,7 @@ export const RegisterToActivity = (location, age, name, id) => {
           age: age,
           name: name,
           id: id,
+          username:username
         },
       });
     } catch (error) {
